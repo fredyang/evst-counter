@@ -10,7 +10,7 @@ import { counterActions } from '../counter/store/counter.actions';
   template: `
     <header class="top-bar">
       <nav aria-label="Main navigation">
-        <a class="brand" href="/">Counter</a>
+        <a class="brand" href="/">Ngrx Store</a>
 
         <button
           class="restore-button"
@@ -19,7 +19,7 @@ import { counterActions } from '../counter/store/counter.actions';
           title="Restore counter"
           (click)="restore()"
         >
-          bad guy restore
+          Another restore
         </button>
       </nav>
     </header>

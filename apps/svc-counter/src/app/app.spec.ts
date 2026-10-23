@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { App } from './app/app.component';
-import { AnalyticsService } from './core/analytics.service';
+import { AnalyticsService } from '@ng-shared';
 
 describe('Service counter app', () => {
   const analytics = { track: vi.fn() };

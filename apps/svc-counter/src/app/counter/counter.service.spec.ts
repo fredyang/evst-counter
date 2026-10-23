@@ -1,8 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { of, Subject, throwError } from 'rxjs';
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
-import { ApiService } from '../core/api.service';
-import { AnalyticsService } from '../core/analytics.service';
+import { AnalyticsService, ApiService } from '@ng-shared';
 import { CounterService } from './counter.service';
 
 describe('CounterService', () => {

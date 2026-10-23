@@ -1,0 +1,88 @@
+:host {
+  display: block;
+  width: min(100%, 520px);
+}
+
+section {
+  text-align: center;
+}
+
+h1 {
+  margin: 0 0 12px;
+  color: #454b48;
+  font-size: 1.25rem;
+  font-weight: 400;
+}
+
+.counter-controls {
+  display: grid;
+  grid-template-columns: 80px minmax(0, 1fr) 80px;
+  align-items: center;
+  gap: clamp(12px, 4vw, 40px);
+}
+
+output {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  font-size: clamp(4rem, 15vw, 8rem);
+  font-weight: 400;
+  font-variant-numeric: tabular-nums;
+  line-height: 1.2;
+}
+
+button {
+  display: inline-grid;
+  place-items: center;
+  width: 80px;
+  height: 80px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #e8eae8;
+  color: #303632;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #d9ddd9;
+}
+
+button:active {
+  transform: translateY(1px);
+}
+
+.warning {
+  min-height: 3em;
+  margin: 16px 0 0;
+  color: #9a3412;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.storage-controls {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.restore-control,
+.backup-control {
+  width: auto;
+  height: 48px;
+  padding: 0 18px;
+  border-radius: 24px;
+  font-size: 1rem;
+}
+
+@media (max-width: 420px) {
+  .counter-controls {
+    grid-template-columns: 56px minmax(0, 1fr) 56px;
+  }
+
+  .counter-controls button {
+    width: 56px;
+    height: 56px;
+  }
+}

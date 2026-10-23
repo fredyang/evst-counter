@@ -4,7 +4,7 @@ import { routes } from './app.routes';
 import { provideState, provideStore } from '@ngrx/store';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { provideEffects } from '@ngrx/effects';
-import { analyticEffect } from './counter/analytic.effect';
+import { analyticsEffect } from './core/analytics.effect';
 import * as counterEffects from './counter/store/counter.effects';
 import { counterFeature } from './counter/store/counter.feature';
 
@@ -14,7 +14,7 @@ export const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideStore(),
     provideState(counterFeature),
-    provideEffects(counterEffects, { analyticEffect }),
+    provideEffects(counterEffects, { analyticsEffect }),
     provideStoreDevtools({
       maxAge: 25,
       logOnly: !isDevMode(),

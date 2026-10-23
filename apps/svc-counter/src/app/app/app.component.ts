@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
-import { CounterService } from '../counter/counter.service';
 import { Counter } from '../counter/counter.component';
+import { CounterService } from '../counter/counter.service';
+// import { CounterService } from '../counter/counter-signal-store.service';
 
 @Component({
   imports: [Counter],
@@ -9,7 +10,7 @@ import { Counter } from '../counter/counter.component';
   template: `
     <header class="top-bar">
       <nav aria-label="Main navigation">
-        <a class="brand" href="/">Counter</a>
+        <a class="brand" href="/">Angular Service</a>
 
         <button
           class="restore-button"
@@ -18,7 +19,7 @@ import { Counter } from '../counter/counter.component';
           title="Restore counter"
           (click)="restore()"
         >
-          bad guy restore
+          Another restore
         </button>
       </nav>
     </header>
@@ -28,8 +29,8 @@ import { Counter } from '../counter/counter.component';
   `,
 })
 export class App {
-  private readonly counter = inject(CounterService);
+  private readonly counterService = inject(CounterService);
   protected restore(): void {
-    this.counter.restore();
+    this.counterService.restore();
   }
 }

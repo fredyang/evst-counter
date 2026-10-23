@@ -4,6 +4,9 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "svc-counter": "npm run start --workspace=svc-counter ",
+    "ngrx-counter": "npm run start --workspace=ngrx-counter ",
+    "evst-ngrx-counter": "npm run start --workspace=evst-ngrx-counter ",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

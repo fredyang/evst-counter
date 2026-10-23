@@ -1,0 +1,19 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #fff;
+  color: #171a19;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+}
+
+button {
+  font: inherit;
+}
+
+:focus-visible {
+  outline: 3px solid #345edb;
+  outline-offset: 4px;
+}

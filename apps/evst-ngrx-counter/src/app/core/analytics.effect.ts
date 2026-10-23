@@ -2,19 +2,19 @@ import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { createActionGroup, props } from '@ngrx/store';
 import { tap } from 'rxjs';
-import { AnalyticsService } from '../core/analytics.service';
+import { AnalyticsService } from '@ng-shared';
 
-export const analyticAction = createActionGroup({
-  source: 'Analytic',
+export const analyticsAction = createActionGroup({
+  source: 'Analytics',
   events: {
     track: props<{ eventName: string; properties?: Record<string, unknown> }>(),
   },
 });
 
-export const analyticEffect = createEffect(
+export const analyticsEffect = createEffect(
   (actions$ = inject(Actions), analyticsService = inject(AnalyticsService)) => {
     return actions$.pipe(
-      ofType(analyticAction.track),
+      ofType(analyticsAction.track),
       tap(({ eventName, properties }) => {
         analyticsService.track(eventName, properties);
       }),

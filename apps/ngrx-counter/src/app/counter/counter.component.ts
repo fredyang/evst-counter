@@ -2,7 +2,7 @@ import { Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { counterActions } from './store/counter.actions';
 import { counterFeature } from './store/counter.feature';
-import { analyticAction } from './analytic.effect';
+import { analyticsAction } from '../core/analytics.effect';
 
 @Component({
   selector: 'app-counter',
@@ -48,25 +48,25 @@ export class Counter implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(counterActions.restore());
-    this.store.dispatch(analyticAction.track({ eventName: 'restore' }));
+    this.store.dispatch(analyticsAction.track({ eventName: 'restore' }));
   }
   protected increment(): void {
     this.store.dispatch(counterActions.increment());
-    this.store.dispatch(analyticAction.track({ eventName: 'increment' }));
+    this.store.dispatch(analyticsAction.track({ eventName: 'increment' }));
   }
 
   protected decrement(): void {
     this.store.dispatch(counterActions.decrement());
-    this.store.dispatch(analyticAction.track({ eventName: 'decrement' }));
+    this.store.dispatch(analyticsAction.track({ eventName: 'decrement' }));
   }
 
   protected restore(): void {
     this.store.dispatch(counterActions.restore());
-    this.store.dispatch(analyticAction.track({ eventName: 'restore' }));
+    this.store.dispatch(analyticsAction.track({ eventName: 'restore' }));
   }
 
   protected backup(): void {
     this.store.dispatch(counterActions.backup());
-    this.store.dispatch(analyticAction.track({ eventName: 'backup' }));
+    this.store.dispatch(analyticsAction.track({ eventName: 'backup' }));
   }
 }

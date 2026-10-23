@@ -6,7 +6,7 @@ export const counterActions = createActionGroup({
     increment: emptyProps(),
     decrement: emptyProps(),
     restore: emptyProps(),
-    resetToInitial: emptyProps(),
+    reset: emptyProps(),
     backup: emptyProps(),
     setCount: props<{ count: number }>(),
   },

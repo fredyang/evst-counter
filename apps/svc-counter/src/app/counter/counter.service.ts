@@ -1,17 +1,17 @@
 import { computed, DestroyRef, inject, Injectable, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Subscription } from 'rxjs';
-import { ApiService } from '../core/api.service';
-import { AnalyticsService } from '../core/analytics.service';
+import { AnalyticsService, ApiService } from '@ng-shared';
 
 @Injectable({ providedIn: 'root' })
 export class CounterService {
   private readonly api = inject(ApiService);
   private readonly analytics = inject(AnalyticsService);
   private readonly destroyRef = inject(DestroyRef);
-  private readonly currentCount = signal(0);
   private restoreRequest = new Subscription();
   private backupRequest = new Subscription();
+
+  private readonly currentCount = signal(0);
 
   readonly count = this.currentCount.asReadonly();
   readonly error = computed(() =>
@@ -29,7 +29,14 @@ export class CounterService {
   }
 
   restore(): void {
-    this.restoreValue();
+    this.restoreRequest.unsubscribe();
+    this.restoreRequest = this.api
+      .restoreCounter()
+      .pipe(takeUntilDestroyed(this.destroyRef))
+      .subscribe({
+        next: (count) => this.currentCount.set(count),
+        error: () => this.currentCount.set(0),
+      });
     this.analytics.track('restore');
   }
 
@@ -48,16 +55,5 @@ export class CounterService {
         error: () => alert('Backing up the counter failed.'),
       });
     this.analytics.track('backup');
-  }
-
-  private restoreValue(): void {
-    this.restoreRequest.unsubscribe();
-    this.restoreRequest = this.api
-      .restoreCounter()
-      .pipe(takeUntilDestroyed(this.destroyRef))
-      .subscribe({
-        next: (count) => this.currentCount.set(count),
-        error: () => this.currentCount.set(0),
-      });
   }
 }

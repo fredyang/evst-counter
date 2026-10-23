@@ -3,18 +3,12 @@ import { counterFeature } from './counter.feature';
 
 describe('counter error selector', () => {
   it.each([-10, 10])('returns a range error for %i', (count) => {
-    expect(counterFeature.selectError({ counter: { count, error: '' } })).toBe(
+    expect(counterFeature.selectError({ counter: { count } })).toBe(
       'Count must be in range -9 to 9.',
     );
   });
 
   it.each([-9, 0, 9])('returns no error for %i', (count) => {
-    expect(counterFeature.selectError({ counter: { count, error: '' } })).toBe('');
-  });
-
-  it('preserves restore errors when the count is in range', () => {
-    expect(counterFeature.selectError({ counter: { count: 0, error: 'Restore failed' } })).toBe(
-      'Restore failed',
-    );
+    expect(counterFeature.selectError({ counter: { count } })).toBe('');
   });
 });
