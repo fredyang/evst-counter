@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Counter } from '../counter/counter.component';
-import { fromTopBar } from '../counter/store/counter.actions';
+import { fromTopBar } from '../counter/store/counter.events';
 
 @Component({
   imports: [Counter],
