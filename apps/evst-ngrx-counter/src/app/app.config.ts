@@ -1,19 +1,18 @@
 import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/core';
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
-import { provideState } from '@ngrx/store';
-import { provideEffects } from '@ngrx/effects';
-import { analyticsEffect } from './core/analytics.effect';
-import * as counterEffects from './counter/store/counter.effects';
-import { counterEvst } from './counter/store/counter.feature';
+import { analyticsTasks } from './core/analytics.effect';
 import { provideEvstStore } from '@evst/ngrx-store';
+import { counterTasks } from './counter/store/counter.effects';
+import { counterEvst } from './counter/store/counter.feature';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     counterEvst.provide(),
-    provideEffects(counterEffects, { analyticsEffect }),
+    counterTasks.provide(),
+    analyticsTasks.provide(),
     provideEvstStore(),
   ],
 };
