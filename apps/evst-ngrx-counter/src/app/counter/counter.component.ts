@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { counterEvst } from './store/counter.feature';
-import { fromCounterPage } from './store/counter.actions';
+import { counterEvst } from './store/counter.evst';
+import { fromCounterPage } from './store/counter.events';
+// import { counterEvst } from './store/counter.feature';
+// import { fromCounterPage } from './store/counter.actions';
 
 @Component({
   selector: 'app-counter',

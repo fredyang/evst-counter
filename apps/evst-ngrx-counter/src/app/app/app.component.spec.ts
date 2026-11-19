@@ -1,16 +1,14 @@
 import { TestBed } from '@angular/core/testing';
-import { provideEffects } from '@ngrx/effects';
-import { provideState, provideStore } from '@ngrx/store';
+import { provideEvstStore } from '@evst/ngrx-store';
 import { describe, expect, it } from 'vitest';
-import * as counterEffects from './counter/store/counter.effects';
-import { App } from './app/app.component';
-import { counterEvst } from './counter/store/counter.feature';
+import { App } from './app.component';
+import { counterEvst } from '../counter/store/counter.evst';
 
 describe('Counter app', () => {
   it('renders the current count and updates it from the counter controls', async () => {
     await TestBed.configureTestingModule({
       imports: [App],
-      providers: [provideStore(), provideState(counterEvst), provideEffects(counterEffects)],
+      providers: [provideEvstStore(), counterEvst.provide()],
     }).compileComponents();
 
     const fixture = TestBed.createComponent(App);
