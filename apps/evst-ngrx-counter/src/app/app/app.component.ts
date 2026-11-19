@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Counter } from '../counter/counter.component';
-import { counterActions } from '../counter/store/counter.actions';
+import { fromTopBar } from '../counter/store/counter.actions';
 
 @Component({
   imports: [Counter],
@@ -29,6 +29,6 @@ import { counterActions } from '../counter/store/counter.actions';
 })
 export class App {
   protected restore(): void {
-    counterActions.restore.publish();
+    fromTopBar.restoreClicked.publish();
   }
 }

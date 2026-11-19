@@ -1,4 +1,4 @@
-import { counterActions } from './counter.actions';
+import { fromApi, fromCounterPage } from './counter.actions';
 import { evst, view } from '@evst/ngrx-store';
 
 export interface CounterState {
@@ -17,14 +17,14 @@ export const counterEvst = evst('Counter', initialState)
   })
   .state((on) => {
     return {
-      increment: on(counterActions.increment, (state): CounterState => {
+      increment: on(fromCounterPage.incrementClicked, (state): CounterState => {
         return { ...state, count: state.count + 1 };
       }),
-      decrement: on(counterActions.decrement, (state): CounterState => {
+      decrement: on(fromCounterPage.decrementClicked, (state): CounterState => {
         return { ...state, count: state.count - 1 };
       }),
-      reset: on(counterActions.reset, (): CounterState => initialState),
-      setCount: on(counterActions.setCount, (state, { count }): CounterState => ({
+      reset: on(fromApi.restoreFailure, (): CounterState => initialState),
+      setCount: on(fromApi.restoreSuccess, (state, { count }): CounterState => ({
         ...state,
         count,
       })),

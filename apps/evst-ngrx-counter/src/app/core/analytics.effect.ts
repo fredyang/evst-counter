@@ -1,21 +1,22 @@
 import { inject } from '@angular/core';
-import { props } from '@ngrx/store';
-import { events, task } from '@evst/ngrx-store';
+import { task } from '@evst/ngrx-store';
 import { tap } from 'rxjs';
 import { AnalyticsService } from '@ng-shared';
-
-export const analyticsAction = events('Analytics', {
-  track: props<{ eventName: string; properties?: Record<string, unknown> }>(),
-});
+import { fromCounterPage, fromTopBar } from '../counter/store/counter.actions';
 
 export const analyticsTasks = task((on) => {
   return {
     track: on(
-      analyticsAction.track,
+      fromCounterPage.backupClicked,
+      fromCounterPage.restoreClicked,
+      fromCounterPage.incrementClicked,
+      fromCounterPage.decrementClicked,
+      fromCounterPage.entered,
+      fromTopBar.restoreClicked,
       (pipe, analyticsService = inject(AnalyticsService)) => {
         return pipe(
-          tap(({ eventName, properties }) => {
-            analyticsService.track(eventName, properties);
+          tap((event) => {
+            analyticsService.track(event.type, event);
           }),
         );
       },

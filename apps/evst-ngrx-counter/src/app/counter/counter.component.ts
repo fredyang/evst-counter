@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { counterActions } from './store/counter.actions';
 import { counterEvst } from './store/counter.feature';
-import { analyticsAction } from '../core/analytics.effect';
+import { fromCounterPage } from './store/counter.actions';
 
 @Component({
   selector: 'app-counter',
@@ -45,26 +44,21 @@ export class Counter implements OnInit {
   protected readonly error = counterEvst.views.error.signal();
 
   ngOnInit(): void {
-    counterActions.restore.publish();
-    analyticsAction.track.publish({ eventName: 'restore' });
+    fromCounterPage.entered.publish();
   }
   protected increment(): void {
-    counterActions.increment.publish();
-    analyticsAction.track.publish({ eventName: 'increment' });
+    fromCounterPage.incrementClicked.publish();
   }
 
   protected decrement(): void {
-    counterActions.decrement.publish();
-    analyticsAction.track.publish({ eventName: 'decrement' });
+    fromCounterPage.decrementClicked.publish();
   }
 
   protected restore(): void {
-    counterActions.restore.publish();
-    analyticsAction.track.publish({ eventName: 'restore' });
+    fromCounterPage.restoreClicked.publish();
   }
 
   protected backup(): void {
-    counterActions.backup.publish();
-    analyticsAction.track.publish({ eventName: 'backup' });
+    fromCounterPage.backupClicked.publish();
   }
 }

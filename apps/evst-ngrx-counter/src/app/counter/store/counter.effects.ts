@@ -1,21 +1,26 @@
 import { inject } from '@angular/core';
 import { catchError, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
-import { counterActions } from './counter.actions';
 import { counterEvst } from './counter.feature';
 import { ApiService } from '@ng-shared';
 import { task } from '@evst/ngrx-store';
+import { fromApi, fromCounterPage, fromTopBar } from './counter.actions';
 
 export const counterTasks = task((on) => {
   return {
-    restoreCounter: on(counterActions.restore, (pipe, api = inject(ApiService)) => {
-      return pipe(
-        switchMap(() => api.restoreCounter()),
-        map((count) => counterActions.setCount({ count })),
-        catchError(() => of(counterActions.reset())),
-      );
-    }),
+    restoreCounter: on(
+      fromCounterPage.restoreClicked,
+      fromCounterPage.entered,
+      fromTopBar.restoreClicked,
+      (pipe, api = inject(ApiService)) => {
+        return pipe(
+          switchMap(() => api.restoreCounter()),
+          map((count) => fromApi.restoreSuccess({ count })),
+          catchError(() => of(fromApi.restoreFailure())),
+        );
+      },
+    ),
     backupCounter: on(
-      counterActions.backup,
+      fromCounterPage.backupClicked,
       (pipe, api = inject(ApiService)) => {
         return pipe(
           withLatestFrom(
