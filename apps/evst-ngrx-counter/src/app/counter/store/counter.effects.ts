@@ -1,6 +1,5 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { Store } from '@ngrx/store';
 import { catchError, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { counterActions } from './counter.actions';
 import { counterEvst } from './counter.feature';
@@ -19,10 +18,10 @@ export const restoreCounter = createEffect(
 );
 
 export const backupCounter = createEffect(
-  (actions$ = inject(Actions), store = inject(Store), api = inject(ApiService)) => {
+  (actions$ = inject(Actions), api = inject(ApiService)) => {
     return actions$.pipe(
       ofType(counterActions.backup),
-      withLatestFrom(store.select(counterEvst.views.count), store.select(counterEvst.views.error)),
+      withLatestFrom(counterEvst.views.count.observable(), counterEvst.views.error.observable()),
       tap(([, , error]) => {
         if (error) {
           alert(`Cannot back up the counter: ${error}`);

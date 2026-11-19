@@ -1,5 +1,4 @@
-import { Component, inject } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component } from '@angular/core';
 import { Counter } from '../counter/counter.component';
 import { counterActions } from '../counter/store/counter.actions';
 
@@ -29,8 +28,7 @@ import { counterActions } from '../counter/store/counter.actions';
   `,
 })
 export class App {
-  store = inject(Store);
   protected restore(): void {
-    this.store.dispatch(counterActions.restore());
+    counterActions.restore.publish();
   }
 }

@@ -1,5 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
 import { counterActions } from './store/counter.actions';
 import { counterEvst } from './store/counter.feature';
 import { analyticsAction } from '../core/analytics.effect';
@@ -42,31 +41,30 @@ import { analyticsAction } from '../core/analytics.effect';
   styleUrl: './counter.component.scss',
 })
 export class Counter implements OnInit {
-  private readonly store = inject(Store);
-  protected readonly count = this.store.selectSignal(counterEvst.views.count);
-  protected readonly error = this.store.selectSignal(counterEvst.views.error);
+  protected readonly count = counterEvst.views.count.signal();
+  protected readonly error = counterEvst.views.error.signal();
 
   ngOnInit(): void {
-    this.store.dispatch(counterActions.restore());
-    this.store.dispatch(analyticsAction.track({ eventName: 'restore' }));
+    counterActions.restore.publish();
+    analyticsAction.track.publish({ eventName: 'restore' });
   }
   protected increment(): void {
-    this.store.dispatch(counterActions.increment());
-    this.store.dispatch(analyticsAction.track({ eventName: 'increment' }));
+    counterActions.increment.publish();
+    analyticsAction.track.publish({ eventName: 'increment' });
   }
 
   protected decrement(): void {
-    this.store.dispatch(counterActions.decrement());
-    this.store.dispatch(analyticsAction.track({ eventName: 'decrement' }));
+    counterActions.decrement.publish();
+    analyticsAction.track.publish({ eventName: 'decrement' });
   }
 
   protected restore(): void {
-    this.store.dispatch(counterActions.restore());
-    this.store.dispatch(analyticsAction.track({ eventName: 'restore' }));
+    counterActions.restore.publish();
+    analyticsAction.track.publish({ eventName: 'restore' });
   }
 
   protected backup(): void {
-    this.store.dispatch(counterActions.backup());
-    this.store.dispatch(analyticsAction.track({ eventName: 'backup' }));
+    counterActions.backup.publish();
+    analyticsAction.track.publish({ eventName: 'backup' });
   }
 }
