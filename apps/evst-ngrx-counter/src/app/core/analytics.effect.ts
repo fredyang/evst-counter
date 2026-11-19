@@ -1,14 +1,12 @@
 import { inject } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
-import { createActionGroup, props } from '@ngrx/store';
+import { props } from '@ngrx/store';
+import { events } from '@evst/ngrx-store';
 import { tap } from 'rxjs';
 import { AnalyticsService } from '@ng-shared';
 
-export const analyticsAction = createActionGroup({
-  source: 'Analytics',
-  events: {
-    track: props<{ eventName: string; properties?: Record<string, unknown> }>(),
-  },
+export const analyticsAction = events('Analytics', {
+  track: props<{ eventName: string; properties?: Record<string, unknown> }>(),
 });
 
 export const analyticsEffect = createEffect(
