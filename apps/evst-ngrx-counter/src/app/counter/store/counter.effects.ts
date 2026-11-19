@@ -1,5 +1,4 @@
 import { inject } from '@angular/core';
-import { Actions, ofType } from '@ngrx/effects';
 import { catchError, filter, map, of, switchMap, tap, withLatestFrom } from 'rxjs';
 import { counterActions } from './counter.actions';
 import { counterEvst } from './counter.feature';
@@ -8,18 +7,17 @@ import { task } from '@evst/ngrx-store';
 
 export const counterTasks = task((on) => {
   return {
-    restoreCounter: on((actions$ = inject(Actions), api = inject(ApiService)) => {
-      return actions$.pipe(
-        ofType(counterActions.restore),
+    restoreCounter: on(counterActions.restore, (pipe, api = inject(ApiService)) => {
+      return pipe(
         switchMap(() => api.restoreCounter()),
         map((count) => counterActions.setCount({ count })),
         catchError(() => of(counterActions.reset())),
       );
     }),
     backupCounter: on(
-      (actions$ = inject(Actions), api = inject(ApiService)) => {
-        return actions$.pipe(
-          ofType(counterActions.backup),
+      counterActions.backup,
+      (pipe, api = inject(ApiService)) => {
+        return pipe(
           withLatestFrom(
             counterEvst.views.count.observable(),
             counterEvst.views.error.observable(),
