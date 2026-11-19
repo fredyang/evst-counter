@@ -7,11 +7,7 @@ import { fromCounterPage, fromTopBar } from '../counter/store/counter.actions';
 export const analyticsTasks = task((on) => {
   return {
     track: on(
-      fromCounterPage.backupClicked,
-      fromCounterPage.restoreClicked,
-      fromCounterPage.incrementClicked,
-      fromCounterPage.decrementClicked,
-      fromCounterPage.entered,
+      fromCounterPage,
       fromTopBar.restoreClicked,
       (pipe, analyticsService = inject(AnalyticsService)) => {
         return pipe(
