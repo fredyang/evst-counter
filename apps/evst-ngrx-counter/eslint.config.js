@@ -14,7 +14,7 @@ module.exports = defineConfig([
       tseslint.configs.recommended,
       tseslint.configs.stylistic,
       angular.configs.tsRecommended,
-      // evst.configs['evst-ngrx'],
+      evst.configs['evst-ngrx'],
       // ngrx.configs.all,
     ],
     languageOptions: {
