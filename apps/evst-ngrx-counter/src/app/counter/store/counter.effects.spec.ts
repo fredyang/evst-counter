@@ -6,7 +6,7 @@ import { ApiService } from '@ng-shared';
 import { analyticsAction, analyticsEffect } from '../../core/analytics.effect';
 import { counterActions } from './counter.actions';
 import { backupCounter, restoreCounter } from './counter.effects';
-import { counterFeature } from './counter.feature';
+import { counterEvst } from './counter.feature';
 
 describe('restoreCounter', () => {
   it('maps a restored value to setCount', async () => {
@@ -41,10 +41,10 @@ describe('backupCounter', () => {
     } as unknown as ApiService;
     const store = {
       select: vi.fn((selector) => {
-        if (selector === counterFeature.selectCount) {
+        if (selector === counterEvst.selectCount) {
           return of(7);
         }
-        if (selector === counterFeature.selectError) {
+        if (selector === counterEvst.selectError) {
           return of('');
         }
         return of(undefined);
@@ -69,10 +69,10 @@ describe('backupCounter', () => {
     } as unknown as ApiService;
     const store = {
       select: vi.fn((selector) => {
-        if (selector === counterFeature.selectCount) {
+        if (selector === counterEvst.selectCount) {
           return of(10);
         }
-        if (selector === counterFeature.selectError) {
+        if (selector === counterEvst.selectError) {
           return of('Count must be in range -9 to 9.');
         }
         return of(undefined);

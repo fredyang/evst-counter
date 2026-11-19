@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { counterActions } from './store/counter.actions';
-import { counterFeature } from './store/counter.feature';
+import { counterEvst } from './store/counter.feature';
 import { analyticsAction } from '../core/analytics.effect';
 
 @Component({
@@ -43,8 +43,8 @@ import { analyticsAction } from '../core/analytics.effect';
 })
 export class Counter implements OnInit {
   private readonly store = inject(Store);
-  protected readonly count = this.store.selectSignal(counterFeature.selectCount);
-  protected readonly error = this.store.selectSignal(counterFeature.selectError);
+  protected readonly count = this.store.selectSignal(counterEvst.views.count);
+  protected readonly error = this.store.selectSignal(counterEvst.views.error);
 
   ngOnInit(): void {
     this.store.dispatch(counterActions.restore());
